@@ -3,10 +3,21 @@
 namespace App;
 
 use App\Events\UserRegisteredEvent;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserEventSubscriber implements EventSubscriberInterface
 {
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(LoggerInterface $logger) {
+
+        $this->logger = $logger;
+    }
+
     public static function getSubscribedEvents() : array
     {
         return [
@@ -15,6 +26,7 @@ class UserEventSubscriber implements EventSubscriberInterface
     }
 
     public function onUserRegistered(UserRegisteredEvent $event) {
-        // TODO implement!
+
+        $this->logger->info("UserEventSubscriber::onUserRegistered()");
     }
 }
