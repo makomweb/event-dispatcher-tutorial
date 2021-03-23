@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Events\UserRegisteredEvent;
+use App\Event\UserRegisteredEvent;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 

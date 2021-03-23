@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Events\UserRegisteredEvent;
+use App\Event\UserRegisteredEvent;
 use App\User;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

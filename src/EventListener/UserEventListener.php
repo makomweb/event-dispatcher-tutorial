@@ -1,8 +1,8 @@
 <?php
 
-namespace App\EventListeners;
+namespace App\EventListener;
 
-use App\Events\UserRegisteredEvent;
+use App\Event\UserRegisteredEvent;
 use Psr\Log\LoggerInterface;
 
 class UserEventListener {
