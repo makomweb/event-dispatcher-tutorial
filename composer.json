@@ -7,6 +7,7 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "^1.12",
         "symfony/console": "5.2.*",
         "symfony/dotenv": "5.2.*",
         "symfony/event-dispatcher": "5.2.*",
