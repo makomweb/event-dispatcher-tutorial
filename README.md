@@ -15,6 +15,12 @@ via EventSubscriber
 
 via EventListener
 
+## Debugging
+
+check if there is an event listener registered for this event
+
+`php bin/console debug:event-dispatcher`
+
 ## Add Logging
 
 `composer require symfony/monolog-bundle`
