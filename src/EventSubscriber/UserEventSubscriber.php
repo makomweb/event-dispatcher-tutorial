@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\EventSubscriber;
 
 use App\Event\UserRegisteredEvent;
 use Psr\Log\LoggerInterface;
@@ -21,12 +21,12 @@ class UserEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents() : array
     {
         return [
-            UserRegisteredEvent::class => 'onUserRegistered'
+            UserRegisteredEvent::class => 'onRegistered'
         ];
     }
 
-    public function onUserRegistered(UserRegisteredEvent $event) {
+    public function onRegistered(UserRegisteredEvent $event) {
 
-        $this->logger->info("UserEventSubscriber::onUserRegistered()");
+        $this->logger->info("UserEventSubscriber::onRegistered()");
     }
 }
