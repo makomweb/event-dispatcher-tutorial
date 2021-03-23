@@ -3,9 +3,22 @@
 namespace App\EventListeners;
 
 use App\Events\UserRegisteredEvent;
+use Psr\Log\LoggerInterface;
 
 class UserEventListener {
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(LoggerInterface $logger) {
+
+        $this->logger = $logger;
+    }
+
     public function onRegistered(UserRegisteredEvent $event) {
-        // TODO implement!
+
+        $this->logger->info("UserEventListener::onRegistered()");
     }
 }
