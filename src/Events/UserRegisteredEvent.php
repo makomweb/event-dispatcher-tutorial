@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-
+use App\User;
 use Symfony\Contracts\EventDispatcher\Event;
 
 class UserRegisteredEvent extends Event {
