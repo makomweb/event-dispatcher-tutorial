@@ -60,7 +60,7 @@ class UserEventSubscriber implements EventSubscriberInterface {
 }
 ~~~
 
-## Listen to an event ()
+## Listen to an event
 
 ~~~php
 class UserEventListener {
@@ -80,8 +80,8 @@ App\EventListener\UserEventListener:
 ## Conclusion
 
 ~~~
-Event listener and subscriber behave the same way it's a matter of taste how
-dealing with events has to be configured in your modules and application
+Event listener and subscriber behave the same way.
+It's a matter of taste how dealing with events should be configured in your modules and application.
 ~~~
 
 ## Debugging
