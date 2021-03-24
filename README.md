@@ -1,6 +1,6 @@
-# Event dispatcher tutorial
+# Event dispatcher / subscriber / listener tutorial
 
-created with 
+### created with 
 
 ~~~bash
 > symfony new event-dispatcher-tutorial
@@ -9,49 +9,83 @@ created with
 
 ## Dispatch an event
 
-## Subscribe to event
+~~~php
+class UserRegisteredEvent extends Event {
+    const NAME = 'user.registered';
+    protected $user;
 
-via EventSubscriber
+    public function __construct(User $user) {
+        $this->user = $user;
+    }
 
-via EventListener
+    public function getUser(): User {
+        return $this->user;
+    }
+}
+~~~
+
+~~~php
+public function __construct(EventDispatcherInterface $dispatcher) {
+
+    $this->dispatcher = $dispatcher;
+}
+
+/**
+ * @Route("/user", name="user")
+ */
+public function index(): Response {
+    $user = new User();
+    $user->name = "John Doe";
+    $user->age = 23;
+
+    $this->dispatcher->dispatch(new UserRegisteredEvent($user));
+
+    // ...
+}
+~~~
+
+## Subscribe to an event (via EventSubscriber)
+
+~~~php
+class UserEventSubscriber implements EventSubscriberInterface {
+    public static function getSubscribedEvents() : array {
+        return [
+            UserRegisteredEvent::class => 'onRegistered'
+        ];
+    }
+
+    public function onRegistered(UserRegisteredEvent $event) {
+        // TODO Handle event!
+    }
+}
+~~~
+
+## Listen to an event ()
+
+~~~php
+class UserEventListener {
+    public function onRegistered(UserRegisteredEvent $event) {
+        // TODO Handle event!
+    }
+}
+~~~
+
+~~~yaml
+# services.yaml
+App\EventListener\UserEventListener:
+  tags:
+    - { 'name': 'kernel.event_listener', 'event': 'App\Event\UserRegisteredEvent', 'method': 'onRegistered' }
+~~~
+
+## Conclusion
+
+~~~
+Event listener and subscriber behave the same way it's a matter of taste how
+dealing with events has to be configured in your modules and application
+~~~
 
 ## Debugging
 
 check if there is an event listener registered for this event
 
 `php bin/console debug:event-dispatcher`
-
-## Add Logging
-
-`composer require symfony/monolog-bundle`
-
-~~~php
-use App\Event\UserRegisteredEvent;
-use App\User;
-use Psr\Log\LoggerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-
-class UserController extends AbstractController {
-
-    /** @var EventDispatcherInterface */
-    private $dispatcher;
-    
-    /** @var LoggerInterface */
-    private $logger;
- 
-    public function __construct(EventDispatcherInterface $dispatcher, LoggerInterface $logger) {
- 
-        $this->dispatcher = $dispatcher;
-        $this->logger = $logger;
-    }
-    
-    public function index(): Response
-    {
-        $this->logger->info("Entering UserController::index()");
-        
-        // ...
-    }
-}
-~~~
